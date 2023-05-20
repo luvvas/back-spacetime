@@ -12,6 +12,21 @@ datasource db {
 
 // To generate UUID
 model User {
-  id   String @id @default(uuid())
-  name String
+  id        String   @id @default(uuid())
+  githubId  Int      @unique
+  name      String
+  login     String
+  avatarUrl String
+  Memory    Memory[]
+}
+
+model Memory {
+  id        String   @id @default(uuid())
+  coverUrl  String
+  content   String
+  isPublic  Boolean  @default(false)
+  createdAt DateTime @default(now())
+
+  user   User   @relation(fields: [userId], references: [id])
+  userId String
 }
