@@ -17,7 +17,7 @@ model User {
   name      String
   login     String
   avatarUrl String
-  Memory    Memory[]
+  memories  Memory[]
 }
 
 model Memory {
