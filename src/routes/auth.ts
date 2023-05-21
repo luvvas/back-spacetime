@@ -44,7 +44,7 @@ export async function authRoute(app: FastifyInstance) {
 
     // response data containing user information is stored
     // in the `userResponse`
-    const userResponse = await axios.get('http://api.github.com/user', {
+    const userResponse = await axios.get('https://api.github.com/user', {
       headers: {
         Authorization: `Bearer ${access_token}`
       }
@@ -80,16 +80,15 @@ export async function authRoute(app: FastifyInstance) {
     }
 
     const token = app.jwt.sign(
-    {
-      // payload
-      name: user.name,
-      avatarUrl: user.avatarUrl,
-    },
-    {
-      // additional options
-      sub: user.id,
-      expiresIn: '30 days',
-    })
+      {
+        name: user.name,
+        avatarUrl: user.avatarUrl,
+      },
+      {
+        sub: user.id,
+        expiresIn: '30 days',
+      }
+    )
 
     return {
       token
