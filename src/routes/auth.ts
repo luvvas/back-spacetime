@@ -79,8 +79,20 @@ export async function authRoute(app: FastifyInstance) {
       })
     }
 
+    const token = app.jwt.sign(
+    {
+      // payload
+      name: user.name,
+      avatarUrl: user.avatarUrl,
+    },
+    {
+      // additional options
+      sub: user.id,
+      expiresIn: '30 days',
+    })
+
     return {
-      user
+      token
     }
   })
 }
