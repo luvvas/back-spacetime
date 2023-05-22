@@ -1,4 +1,5 @@
 import 'dotenv/config'
+import { resolve } from 'node:path'
 
 import fastify from 'fastify'
 import cors from '@fastify/cors'
@@ -12,6 +13,11 @@ import { uploadRoutes } from './routes/upload'
 const app = fastify()
 
 app.register(multipart)
+
+app.register(require('@fastify/static'), {
+  root: resolve(__dirname, '../uploads'),
+  prefix: '/uploads'
+})
 
 app.register(cors, {
   // origin: ['http://localhost:3000', 'https://urlDeProducao.com']
